@@ -41,6 +41,7 @@
           </a>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
+            <span>{{ $store.state.user.token }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

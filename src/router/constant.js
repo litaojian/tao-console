@@ -53,7 +53,7 @@ const constantRouter = [
     hidden: true
   },
   {
-    path: '',
+    path: 'home',
     component: Layout,
     redirect: 'dashboard',
     children: [
