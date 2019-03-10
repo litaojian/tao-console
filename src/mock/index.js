@@ -4,6 +4,8 @@ import articleAPI from './article'
 import remoteSearchAPI from './remoteSearch'
 import transactionAPI from './transaction'
 import testRecAPI from './testRec'
+import bizqueryConfigAPI from './bizquery.config'
+import bizformConfigAPI from './bizform.config'
 
 // 修复在使用 MockJS 情况下，设置 withCredentials = true，且未被拦截的跨域请求丢失 Cookies 的问题
 // https://github.com/nuysoft/Mock/issues/300
@@ -37,6 +39,11 @@ Mock.mock(/\/testRec\/detail/, 'get', testRecAPI.getTestRec)
 Mock.mock(/\/testRec\/pv/, 'get', testRecAPI.getPv)
 Mock.mock(/\/testRec\/create/, 'post', testRecAPI.createTestRec)
 Mock.mock(/\/testRec\/update/, 'post', testRecAPI.updateTestRec)
+
+// bizquery相关
+Mock.mock(/\/config\/bizquery/, 'get', bizqueryConfigAPI.getConfig)
+// bizform相关
+Mock.mock(/\/config\/bizform/, 'get', bizformConfigAPI.getConfig)
 
 // 搜索相关
 Mock.mock(/\/search\/user/, 'get', remoteSearchAPI.searchUser)

@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Router Modules */
 import testRecRouter from './modules/testRec'
+import bizQueryRouter from './modules/bizQuery'
 import constantRouter from './constant'
 
 export default new Router({
@@ -15,6 +16,7 @@ export default new Router({
 
 export const asyncRouterMap = [
   /** When your routing table is too long, you can split it into small modules**/
+  bizQueryRouter,
   testRecRouter,
   /** default page */
   { path: '*', redirect: '/404', hidden: true },
