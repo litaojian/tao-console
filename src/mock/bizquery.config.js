@@ -11,10 +11,10 @@ const queryList = {
       { 'label': '标题', name: 'title', align: 'left', mini_width: '200px', width: '320px' },
       { 'label': '状态', name: 'status', align: 'left', width: '150px' },
       { 'label': '操作', name: 'actions', type: 'actions', align: 'center', mini_width: '200px', width: '200px', buttons: [
-        { 'type': 'edit', name: 'edit', label: '编辑', 'hidden': false },
-        { 'type': 'delete', name: 'delete', label: '删除', 'hidden': false },
-        { 'type': 'print', name: 'view', label: '查看', 'hidden': true },
-        { 'type': 'print', name: 'print', label: '打印', 'hidden': true }
+        { 'type': 'edit', name: 'edit', label: '编辑', 'hidden': false, 'actionUrl': '/bizform/testRec' },
+        { 'type': 'delete', name: 'delete', label: '删除', 'hidden': false, 'actionUrl': '/bizform/testRec' },
+        { 'type': 'print', name: 'view', label: '查看', 'hidden': true, 'actionUrl': '/bizform/testRec' },
+        { 'type': 'print', name: 'print', label: '打印', 'hidden': true, 'actionUrl': '/bizform/testRec' }
       ]
       }
     ]

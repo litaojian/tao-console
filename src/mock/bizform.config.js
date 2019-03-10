@@ -1,9 +1,10 @@
 import { param2Obj } from '@/utils'
 
 const formList = {
-  'form1': {
-    'title': 'demo1',
-    'fields': [
+  'testRec': {
+    'restUrl': '/testRec',
+    'title': 'testRec',
+    'formFields': [
       { 'label': 'ID', name: 'id', type: 'number' },
       { 'label': 'Title', name: 'title', type: 'string' },
       { 'label': 'Publish Date', name: 'publish_date', type: 'date' }

@@ -12,16 +12,16 @@
           <span v-if="column.type === 'amount'">{{ scope.row[column.name] }}</span>
           <span v-if="column.type === 'actions' || column.name === 'actions'">
             <span v-for="action in column.buttons" :key="action.name">
-              <router-link v-if="action.type === 'edit' && action.hidden === false" :to="'edit/'+scope.row.id">
+              <router-link v-if="action.type === 'edit' && action.hidden === false" :to="action.actionUrl+'/edit/'+scope.row.id">
                 <el-button size="small" icon="el-icon-edit">{{ action.label }}</el-button>
               </router-link>
-              <router-link v-if="action.type === 'delete' && action.hidden === false" :to="'delete/'+scope.row.id">
+              <router-link v-if="action.type === 'delete' && action.hidden === false" :to="action.actionUrl+'delete/'+scope.row.id">
                 <el-button size="small" icon="el-icon-delete">{{ action.label }}</el-button>
               </router-link>
-              <router-link v-if="action.type === 'view' && action.hidden === false" :to="'view/'+scope.row.id">
+              <router-link v-if="action.type === 'view' && action.hidden === false" :to="action.actionUrl+'view/'+scope.row.id">
                 <el-button size="small" icon="el-icon-view">{{ action.label }}</el-button>
               </router-link>
-              <router-link v-if="action.type === 'print' && action.hidden === false" :to="'print/'+scope.row.id">
+              <router-link v-if="action.type === 'print' && action.hidden === false" :to="action.actionUrl+'print/'+scope.row.id">
                 <el-button size="small" icon="el-icon-print">{{ action.label }}</el-button>
               </router-link>
             </span>
@@ -78,7 +78,7 @@ export default {
         this.dataUrl = this.bizConfig.dataUrl
         this.dataColumns = this.bizConfig.columns
         this.listLoading = false
-        // console.log('bizConfig: ' + JSON.stringify(this.bizConfig))
+        // console.log('bizQueryConfig: ' + JSON.stringify(this.bizConfig))
         if (this.dataUrl) {
           this.getList()
         }

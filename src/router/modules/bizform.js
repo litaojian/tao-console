@@ -3,15 +3,15 @@ import Layout from '@/views/layout/Layout'
 const bizQueryRouter = {
   path: '/bizform',
   component: Layout,
-  name: 'BizForm-DEMO',
+  name: 'BizForm',
   meta: {
     title: '详情',
     icon: 'form'
   },
   children: [{
-    path: 'edit/:id',
+    path: ':formname/edit/:rowid',
     component: () => import('@/views/bizform/form'),
-    name: 'formDemo',
+    name: 'formEdit',
     meta: {
       title: '[模块]详情',
       noCache: true
@@ -19,11 +19,11 @@ const bizQueryRouter = {
     hidden: true
   },
   {
-    path: 'view/:id',
+    path: ':formname/view/:rowid',
     component: () => import('@/views/bizform/form'),
-    name: 'formDemo',
+    name: 'formView',
     meta: {
-      title: '[模块]详情',
+      title: '[模块]查看详情',
       noCache: true
     },
     hidden: true

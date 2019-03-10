@@ -10,6 +10,15 @@ const testRecRouter = {
     icon: 'table'
   },
   children: [{
+    path: 'demo1',
+    redirect: '/bizquery/list/demo1',
+    name: 'BizTestRec',
+    meta: {
+      title: 'demo1',
+      icon: 'edit'
+    }
+  },
+  {
     path: 'create',
     component: () => import('@/views/testRec/create'),
     name: 'CreateTestRec',
