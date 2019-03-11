@@ -15,3 +15,11 @@ export function fetchDataList(dataUrl, queryParams) {
     params: { queryParams }
   })
 }
+
+export function sendAction(method, dataUrl, params) {
+  return request({
+    url: dataUrl,
+    method: method,
+    params: { params }
+  })
+}

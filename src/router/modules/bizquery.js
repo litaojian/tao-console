@@ -9,7 +9,7 @@ const bizQueryRouter = {
     icon: 'table'
   },
   children: [{
-    path: 'list/:id',
+    path: 'list/:name',
     component: () => import('@/views/bizquery/list'),
     name: 'listDemo',
     meta: {

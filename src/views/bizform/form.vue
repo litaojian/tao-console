@@ -67,6 +67,7 @@ const defaultForm = {
   comment_disabled: false,
   importance: 0
 }
+
 export default {
   name: 'BizForm',
   components: { MDinput, Sticky },
@@ -142,18 +143,17 @@ export default {
       })
     },
     submitForm() {
-      this.postForm.display_time = parseInt(this.display_time / 1000)
-      console.log(this.postForm)
-      this.$refs.postForm.validate(valid => {
+      console.log(this.mainForm)
+      this.$refs.mainForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$notify({
             title: '成功',
-            message: '发布文章成功',
+            message: '保存成功',
             type: 'success',
             duration: 2000
           })
-          this.postForm.status = 'published'
+          // this.mainForm.status = 'published'
           this.loading = false
         } else {
           console.log('error submit!!')

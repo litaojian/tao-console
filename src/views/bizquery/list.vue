@@ -12,18 +12,9 @@
           <span v-if="column.type === 'amount'">{{ scope.row[column.name] }}</span>
           <span v-if="column.type === 'actions' || column.name === 'actions'">
             <span v-for="action in column.buttons" :key="action.name">
-              <router-link v-if="action.type === 'edit' && action.hidden === false" :to="action.actionUrl+'/edit/'+scope.row.id">
-                <el-button size="small" icon="el-icon-edit">{{ action.label }}</el-button>
-              </router-link>
-              <router-link v-if="action.type === 'delete' && action.hidden === false" :to="action.actionUrl+'delete/'+scope.row.id">
-                <el-button size="small" icon="el-icon-delete">{{ action.label }}</el-button>
-              </router-link>
-              <router-link v-if="action.type === 'view' && action.hidden === false" :to="action.actionUrl+'view/'+scope.row.id">
-                <el-button size="small" icon="el-icon-view">{{ action.label }}</el-button>
-              </router-link>
-              <router-link v-if="action.type === 'print' && action.hidden === false" :to="action.actionUrl+'print/'+scope.row.id">
-                <el-button size="small" icon="el-icon-print">{{ action.label }}</el-button>
-              </router-link>
+              <el-button v-if="action.hidden === false" :icon="action.icon || ''" size="small" @click="execCmd(action, scope.row, $event)">
+                {{ action.label }}
+              </el-button>
             </span>
           </span>
         </template>
@@ -36,7 +27,7 @@
 </template>
 
 <script>
-import { getBizQueryConfig, fetchDataList } from '@/api/bizquery'
+import { getBizQueryConfig, fetchDataList, sendAction } from '@/api/bizquery'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
@@ -54,7 +45,8 @@ export default {
   },
   data() {
     return {
-      id: undefined,
+      name: undefined,
+      idColumn: 'id',
       bizConfig: null,
       list: null,
       total: 0,
@@ -68,13 +60,14 @@ export default {
     }
   },
   created() {
-    this.id = this.$route.params && this.$route.params.id
+    this.name = this.$route.params && this.$route.params.name
     this.getConfig()
   },
   methods: {
     getConfig() {
-      getBizQueryConfig(this.id).then(response => {
+      getBizQueryConfig(this.name).then(response => {
         this.bizConfig = response.data.config
+        this.idColumn = this.bizConfig.idColumn || 'id'
         this.dataUrl = this.bizConfig.dataUrl
         this.dataColumns = this.bizConfig.columns
         this.listLoading = false
@@ -91,6 +84,34 @@ export default {
         this.listLoading = false
         // console.log('bizData: ' + JSON.stringify(this.list))
       })
+    },
+
+    // 执行预定义命令
+    execCmd(action, row, event) {
+      const url = action.actionUrl || this.bizConfig.detailUrl
+
+      if (action.script) {
+        const cmdFunc = new Function('action', 'row', action.script)
+        const result = cmdFunc(action, row)
+        if (result != null) {
+          console.log(result)
+          if (result && result.toUrl) {
+            this.$router.push({ path: result.toUrl })
+          }
+        }
+      } else if (action.type === 'edit') {
+        this.$router.push({ 'path': url + '/edit/' + row[this.idColumn] })
+      } else if (action.type === 'view') {
+        this.$router.push({ 'path': url + '/view/' + row[this.idColumn] })
+      } else if (action.type === 'delete') {
+        const yn = confirm('是否删除？')
+        if (yn) {
+          sendAction(url + '/' + row[this.idColumn], 'delete', null)
+          console.log('已删除')
+        }
+      }
+
+      return false
     }
 
   }
