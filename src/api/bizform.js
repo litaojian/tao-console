@@ -16,18 +16,18 @@ export function getAction(dataUrl, queryParams) {
   })
 }
 
-export function postAction(dataUrl, queryParams) {
+export function postAction(dataUrl, formData) {
   return request({
     url: dataUrl,
     method: 'post',
-    params: { queryParams }
+    params: { formData }
   })
 }
 
-export function deleteAction(dataUrl, queryParams) {
+export function deleteAction(dataUrl, otherParams) {
   return request({
     url: dataUrl,
     method: 'delete',
-    params: { queryParams }
+    params: { otherParams }
   })
 }
